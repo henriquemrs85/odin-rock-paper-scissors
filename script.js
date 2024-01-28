@@ -7,7 +7,6 @@ function getRandomIntInclusive(min, max) {
 function getComputerChoice() {
     let randomNumber = getRandomIntInclusive(1,3);
     let computerChoice;
-    console.log(randomNumber);
 
     switch(randomNumber) {
         case 1: 
@@ -25,3 +24,61 @@ function getComputerChoice() {
 
     return computerChoice;
 }
+
+function playRound(playerSelection, computerSelection) {
+    let playerSelectionLowerCase = playerSelection.toLowerCase();
+    let winner;
+
+    if (computerSelection == 'paper') {
+        if (playerSelectionLowerCase == 'paper') {
+            winner = 'tie';
+        } else if (playerSelectionLowerCase == 'rock') {
+                winner = 'computer';
+        } else if (playerSelectionLowerCase == 'scissors') {
+            winner = 'player';
+        } else {
+            winner = 'error';
+        }
+    } else if (computerSelection == 'rock') {
+        if (playerSelectionLowerCase == 'paper') {
+            winner = 'player';
+        } else if (playerSelectionLowerCase == 'rock') {
+                winner = 'tie';
+        } else if (playerSelectionLowerCase == 'scissors') {
+            winner = 'computer';
+        } else {
+            winner = 'error';
+        }
+    } else if (computerSelection == 'scissors') {
+        if (playerSelectionLowerCase == 'paper') {
+            winner = 'computer';
+        } else if (playerSelectionLowerCase == 'rock') {
+                winner = 'player';
+        } else if (playerSelectionLowerCase == 'scissors') {
+            winner = 'tie';
+        } else {
+            winner = 'error';
+        }
+    } 
+
+    let returnMessage;
+
+    if (winner == 'error') {
+        returnMessage = "It's an error. Computer choice is " + computerSelection + " and player choice is " + playerSelectionLowerCase + ". Those are not valid options.";
+    } else if (winner == 'tie') {
+        returnMessage = "It's a tie. Both players chose " + computerSelection;
+    } else {
+        returnMessage = winner + " won. "
+        if (winner == 'computer') {
+            returnMessage += computerSelection + " beats " + playerSelectionLowerCase;
+        } else {
+            returnMessage += playerSelection + " beats " + computerSelection;
+        }
+    }
+
+    return returnMessage;
+}
+   
+const playerSelection = "rock";
+const computerSelection = getComputerChoice();
+console.log(playRound(playerSelection, computerSelection));
